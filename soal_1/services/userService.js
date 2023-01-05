@@ -67,7 +67,13 @@ class UserService {
         methods: 'get',
         url
       })
-      return jobs.data
+      let res = jobs.data
+      if (params.page) {
+        let limitStart = params.limit * (params.page-1)
+        let limitEnd = params.limit * params.page
+        res = jobs.data.slice(limitStart, limitEnd)
+      }
+      return res
     } catch (error) {
       next(error)
     }

@@ -31,11 +31,13 @@ class UserController {
 
   static getJobs = async (req, res, next) => {
     try {
-      let {location, description, fulltime} = req.query
+      let {location, description, fulltime, page, limit} = req.query
       let params = {
         location,
         description,
-        fulltime
+        fulltime,
+        limit: !limit? 2: +limit,
+        page: !page? 1: +page
       }
       let allJobs = await UserService.getJobs(params, next)
       if (allJobs) {

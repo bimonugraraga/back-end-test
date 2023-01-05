@@ -46,6 +46,8 @@ List of available endpoints
     1. description
     2. full_time
     3. location
+    4. page (default = 1)
+    5. limit (default = 2)
 
 ### 3. POST v1/user/jobs/:id
   Description: get job
