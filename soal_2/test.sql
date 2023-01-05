@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Customers (
 	CUST_ID BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	CUST_FIRSTNAME VARCHAR(230) NOT NULL,
-	CUST_LAST VARCHAR(230) NOT NULL,
+	CUST_LASTNAME VARCHAR(230) NOT NULL,
 	CUST_BIRTHDAY DATE,
 	CUST_GENDER CHAR(1) NOT NULL,
 	CUST_ADDRESS VARCHAR(250),
@@ -40,3 +40,14 @@ CREATE  TABLE IF NOT EXISTS Transaction_Transfer (
 	REFERENCES accounts(acc_id)
 );
 
+SELECT  acc_owner, cust_firstname, cust_lastname , count(acc_owner) AS total_account FROM accounts a
+JOIN customers c ON acc_owner = cust_id
+GROUP BY acc_owner, cust_firstname, cust_lastname ;
+
+SELECT *, a.acc_number FROM transactions t
+JOIN accounts a  ON a.acc_id = t.trs_from_account 
+JOIN customers c ON a.acc_owner = c.cust_id
+WHERE c.cust_firstname = 'John' AND c.cust_lastname = 'Michael'
+ORDER BY a.acc_number ASC
+	NULLS LAST,
+	t.trs_date ASC;
